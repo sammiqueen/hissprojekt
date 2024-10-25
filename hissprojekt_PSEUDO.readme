@@ -28,3 +28,7 @@ nej:
 TILLÄGG
 sortera alla positioner i en lista, så att det finns en turordning för var hissen ska åka och i vilken ordning den ska besöka våningarna
 detta görs genom att ha en lista med de "råa" inputsen och en filtrerad lista där inputsen blir istoppade i ordning så att hissen fungerar på ett optimalt sätt
+
+KOM PÅ BÄTTRE LÖSNING:
+sortera listan stigande om hissen befinner sig närmare botten
+sortera listan fallande om hissen befinner sig närmare toppen 

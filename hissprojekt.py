@@ -21,6 +21,7 @@ def buttonPress(queue, waitQueue, currentFloor):
         queue.append(buttonPress)
     else:
         waitQueue.append(buttonPress)
+        return queue, waitQueue
 
 def integerInput(question):
     while True:
@@ -39,6 +40,15 @@ def isGoingDown(queue, currentFloor):
         goingDown = True
     return goingDown
 
+currentFloor = 0
+queue = []
+waitQueue = []
 
-queue = queueSort(queue, currentFloor)
-print(queue)
+# switch directions
+if(
+    queue.length == 0
+):
+    queue = waitQueue
+    waitQueue = []
+
+queue, waitQueue = buttonPress(queue, waitQueue, currentFloor)

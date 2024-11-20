@@ -1,35 +1,44 @@
-def moveElevator(queue) :
-
+def moveElevator(queue):
     currentFloor = queue[0]
     queue.remove(currentFloor)
-
-    print (currentFloor)
+    
     return currentFloor
 
-def queueSort(queue, currentFloor) :
+def queueSort(queue, currentFloor):
+    queue.sort(reverse=isGoingDown(queue, currentFloor))
 
-    if (queue[0] > currentFloor):
-        goingDown = False
-    else:
-        goingDown = True
+    return queue
 
-    queue.sort(reverse = goingDown)
+def buttonPress(queue, waitQueue, currentFloor):
+    buttonPress = integerInput("Önskad våning?")
 
-    print (queue)
-    return queue, goingDown
-
-def buttonPress(queue, waitQueue, goingDown):
-
-    while True:
-        try:
-            buttonPress = int(input("Önskad våning?"))
-            break
-        except:
-            print("Endast integers tack")
-
-    if (goingDown and (buttonPress <= queue [0]) or (not goingDown) and (buttonPress >= queue[0])):
+    if (
+        isGoingDown(queue, currentFloor)
+        and (buttonPress <= queue[0])
+        or (not isGoingDown(queue, currentFloor))
+        and (buttonPress >= queue[0])
+    ):
         queue.append(buttonPress)
     else:
         waitQueue.append(buttonPress)
 
-queueSort()
+def integerInput(question):
+    while True:
+        try:
+            answer = int(input(question))
+            break
+        except Exception:
+            print("Endast integers tack")
+    return answer
+
+
+def isGoingDown(queue, currentFloor):
+    if queue[0] >= currentFloor:
+        goingDown = False
+    else:
+        goingDown = True
+    return goingDown
+
+
+queue = queueSort(queue, currentFloor)
+print(queue)

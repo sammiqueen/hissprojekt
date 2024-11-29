@@ -2,12 +2,20 @@ def moveElevator(queue):
     currentFloor = queue[0]
     queue.remove(currentFloor)
     
-    return currentFloor
+    pack = [queue, currentFloor]
+    return pack
 
-def queueSort(queue, currentFloor):
-    queue.sort(reverse=isGoingDown(queue, currentFloor))
+def queueSort(queue,currentFloor):
+    queue.sort(reverse=isGoingDown(queue,currentFloor))
 
     return queue
+
+def integerInput(question):
+    while True:
+        try:
+            return int(input(question))
+        except Exception:
+            print("Endast integers tack")
 
 def buttonPress(queue, waitQueue, currentFloor):
     buttonPress = integerInput("Önskad våning?")
@@ -21,17 +29,9 @@ def buttonPress(queue, waitQueue, currentFloor):
         queue.append(buttonPress)
     else:
         waitQueue.append(buttonPress)
-        return queue, waitQueue
-
-def integerInput(question):
-    while True:
-        try:
-            answer = int(input(question))
-            break
-        except Exception:
-            print("Endast integers tack")
-    return answer
-
+    
+    pack = [queue, waitQueue]
+    return pack
 
 def isGoingDown(queue, currentFloor):
     if queue[0] >= currentFloor:
@@ -41,14 +41,34 @@ def isGoingDown(queue, currentFloor):
     return goingDown
 
 currentFloor = 0
-queue = []
+queue = [0]
 waitQueue = []
 
-# switch directions
-if(
-    queue.length == 0
-):
-    queue = waitQueue
-    waitQueue = []
+while(True):
+    userInput = input("test prompt")
 
-queue, waitQueue = buttonPress(queue, waitQueue, currentFloor)
+    # switch directions
+    if(
+        #queue.length == 0
+        #or
+        userInput == "swap"
+    ):
+        queue = waitQueue
+        waitQueue = []
+
+    if (userInput == "buttonpress"):
+        pack = buttonPress(queue, waitQueue, currentFloor)
+        queue = pack[0]
+        print(queue)
+        waitQueue = pack[1]
+        print(waitQueue)
+
+    if (userInput == "step"):
+        pack = moveElevator(queue)
+        queue = pack[0]
+        currentFloor = pack[1]
+        print(queue, currentFloor)
+
+    if (userInput == "sort"):
+        queue = queueSort(queue,currentFloor)
+        print(queue)

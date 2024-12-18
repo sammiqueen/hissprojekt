@@ -47,7 +47,7 @@ waitQueue = []
 while(True):
     userInput = input("test prompt")
 
-    # switch directions
+    #switch directions
     if(
         #queue.length == 0
         #or
